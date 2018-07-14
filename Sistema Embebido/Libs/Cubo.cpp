@@ -3,23 +3,23 @@
 
 
 Cubo::Cubo(
-         DRV8825 &arriba,  DRV8825 &abajo,  DRV8825 &Lateral,
+         DRV8825 &arriba,  DRV8825 &abajo,  DRV8825 &Lateral/*,
             const int fwdPin,const  int revPin,const  int pasos,const  int steps, 
             const int grados120,const  int grados90,const  int grados45, 
-            const int tiempoLectora,const  int pausa 
+            const int tiempoLectora,const  int pausa */
         )
 { 
-    this->fwdPin = fwdPin;
+    /*this->fwdPin = fwdPin;
     this->revPin = revPin;
     this->pasos = pasos;
     this->steps = steps;
     this->grados120 = grados120;
     this->grados90 = grados90;
-    this->grados45 = grados45;
+    this->grados45 = grados45;s
     this->tiempoLectora = tiempoLectora;
-    this->pausa = pausa;
+    this->pausa = pausa;*/
 }
-
+/*
 int Cubo::getFwdPin(){
     return this->fwdPin;
 }
@@ -47,51 +47,52 @@ int Cubo::getTiempoLectora(){
 int Cubo::getPausa(){
     return this->pausa;
 }
-
+*/
 void Cubo::MovL(){
-
+    Serial.println("MOVER L");
 }
 
 void Cubo::MovR(){
+    Serial.println("MOVER R");
 }
 
 void Cubo::MovF(){
-
+    Serial.println("MOVER F");
 }
 
 void Cubo::MovB(){
-
+    Serial.println("MOVER B");
 }
 
 void Cubo::MovU(){
-
+    Serial.println("MOVER U");
 }
 void Cubo::MovD(){
-
+    Serial.println("MOVER D");
 }
 
 void Cubo::MovRA(){
-
+    Serial.println("MOVER RA");
 }
 
 void Cubo::MovLA(){
-
+    Serial.println("MOVER LA");
 }
 
 void Cubo::MovUA(){
-
+    Serial.println("MOVER UA");
 }
 
 void Cubo::MovDA(){
-
+    Serial.println("MOVER DA");
 }
 
 void Cubo::MovBA(){
-
+    Serial.println("MOVER BA");
 }
 
 void Cubo::MovFA(){
-
+    Serial.println("MOVER FA");
 }
 
 void Cubo::Mover( char c){

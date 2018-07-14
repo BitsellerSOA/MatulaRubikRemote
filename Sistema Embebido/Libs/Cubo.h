@@ -21,8 +21,8 @@
 class Cubo
 {
     public:
-        Cubo(DRV8825 &arriba, DRV8825 &abajo, DRV8825 &lateral,
-         const int fwdPin, const int revPin, const int pasos, const int steps, const int grados120, const int grados90, const int grados45, const int tiempoLectora,const  int pausa 
+        Cubo(DRV8825 &arriba, DRV8825 &abajo, DRV8825 &lateral/*,
+         const int fwdPin, const int revPin, const int pasos, const int steps, const int grados120, const int grados90, const int grados45, const int tiempoLectora,const  int pausa */
         );
         
         void Mover( char c);
@@ -41,7 +41,7 @@ class Cubo
         void MovFA();
         void MovBA();
 
-        int getFwdPin();
+    /* int getFwdPin();
         int getRevPin();
         int getPasos();
         int getSteps();
@@ -49,10 +49,10 @@ class Cubo
         int getGrados90();
         int getGrados45();
         int getTiempoLectora();
-        int getPausa();
+        int getPausa();*/
 
         private:
-            int fwdPin;
+           /* int fwdPin;
             int revPin;
             int pasos;
             int steps;
@@ -60,6 +60,6 @@ class Cubo
             int grados90;
             int grados45;
             int tiempoLectora;
-            int pausa;
+            int pausa;*/
 };
 #endif
