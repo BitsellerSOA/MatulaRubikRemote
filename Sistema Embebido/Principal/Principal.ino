@@ -104,6 +104,7 @@ bool analizarPost()
     else
     {
       cubo.Mover(cara[0]);
+      delay(1000);
       enviarHttpResponse_OK(client);
       return true;
     }
@@ -141,6 +142,8 @@ bool leerBodyPost(String respuesta, char * body_post)
   //RECUPERAR=> Cuanto mide el mensaje sin la cabecera.
   String body_tam = respuesta.substring(respuesta.indexOf("Content-Length:") + 15); //15 es la longitud de "Content-Length:"
   longAreaDatos = body_tam.toInt(); // Convertimos en entero la logitud recuperada
+
+
   
   if (longAreaDatos > MAX_BODY_SIZE) // Verificamos que no se supere el tamanio maximo del mensaje comprometido para leer
     return false;
@@ -150,7 +153,9 @@ bool leerBodyPost(String respuesta, char * body_post)
   {
     body_post[indexCaracterRecup] = client.read(); //Leer un caracter y mandarlo al arreglo
     indexCaracterRecup++; // avanzamos una posicion en el arreglo
+    
   }
+  
   
   return true;
 }
