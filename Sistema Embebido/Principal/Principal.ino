@@ -22,29 +22,62 @@ const size_t MAX_BODY_SIZE = 200;
 
 String mensaje = "";
 
+int value;
 
-const int fwdPin=52;
-const int revPin=53;
+const int dirArr = 26;  // MOTOR ARRIBA
+const int stepArr = 25;
+const int enblArr = 24;
+
+const int dirAbajo = 31;  // MOTOR ABAJO
+const int stepAbajo = 30;
+const int enblAbajo = 28;
+
+const int dirCost = 36;  // MOTOR DE COSTADO
+const int stepCost = 35;
+const int enblCost = 33;
+
+const int fwdPin=38;
+const int revPin=39;
+const int inputFinCarrera=22;
 const int pasos=200;
-const int steps=100;
-const int grados120=100;
+const int grados180=100;
 const int grados90=50;
 const int grados45=25;
 const int tiempoLectora=10;
 const int pausa=5000;
 
-DRV8825 arriba(40,39,28);
-DRV8825 abajo(45,44,42);
-DRV8825 lateral(50,49,47);
+DRV8825 arriba(26,25,24);
+DRV8825 abajo(31,30,28);
+DRV8825 lateral(36,35,33);
 
-Cubo cubo(arriba, abajo, lateral/*, fwdPin, revPin, pasos, steps, grados120, grados90, grados45, tiempoLectora, pausa*/);
+Cubo cubo( dirArr,     stepArr,    enblArr,
+           dirAbajo,   stepAbajo,  enblAbajo,
+           dirCost,    stepCost,   enblCost,
+            fwdPin, revPin, inputFinCarrera, pasos, grados180, grados90, grados45, tiempoLectora, pausa);
 
 void setup() {
+  digitalWrite(fwdPin, LOW);  
+  digitalWrite(revPin, LOW);
+  
   Serial.begin(9600);
-  pinMode(3, OUTPUT);
+//  pinMode(3, OUTPUT);
   Ethernet.begin(mac, ip);
   server.begin();
   delay(100);
+
+  // esto es por si la lectora no esta toda para atraz cuando epieza el programa
+  value = digitalRead(inputFinCarrera);
+  while( value == LOW ){    
+     value = digitalRead(inputFinCarrera);
+  }
+
+  digitalWrite(revPin, LOW);
+  digitalWrite(fwdPin, HIGH);
+  
+  delay(tiempoLectora);
+  
+  digitalWrite(revPin, LOW);
+  digitalWrite(fwdPin, LOW);
 }
 
 
@@ -85,31 +118,25 @@ bool analizarPost()
 {
   char body_post[MAX_BODY_SIZE] = "";
   char cara[2] = "";
-  String respuesta_aux = mensaje.substring(mensaje.indexOf("/led/"));
-  int num_pin = '3';
   if (leerBodyPost(mensaje, body_post) == false)
   {
     Serial.println("Error al leer el campo Body");
     enviarHttpResponse_BadRequest(client);
     return false;
   }
-  if (num_pin == '3')
+  if (parserBodyPost(body_post, cara) == false)
   {
-    if (parserBodyPost(body_post, cara) == false)
-    {
-      Serial.println("Error al realizar el parser");
-      enviarHttpResponse_BadRequest(client);
-      return false;
-    }
-    else
-    {
-      cubo.Mover(cara[0]);
-      delay(1000);
-      enviarHttpResponse_OK(client);
-      return true;
-    }
-
+    Serial.println("Error al realizar el parser");
+    enviarHttpResponse_BadRequest(client);
+    return false;
   }
+  else
+  {
+    cubo.Mover(cara[0]);
+    enviarHttpResponse_OK(client);
+    return true;
+  }
+
   Serial.println("Numero de Pin Incorrecto..");
   enviarHttpResponse_BadRequest(client);
 
@@ -120,7 +147,6 @@ bool analizarPost()
 /*
  * EJEMPLO: Si hicimos un post para enviar el mensaje que indica mover una cara, al recuperar lo recibido obtenemos el siguiente paquete
  * *****************************************************************************
- * Cliente Conectado...
  * POST / HTTP/1.1
  * Content-Type: application/json;charset=UTF-8
  * Accept: application/json
