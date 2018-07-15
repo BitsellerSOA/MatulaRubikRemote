@@ -1,0 +1,22 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <EditTextPreference
+        android:defaultValue="@string/pref_default_ip"
+        android:digits="0123456789."
+        android:inputType="number|numberDecimal"
+        android:key="ip"
+        android:maxLines="1"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:summary="@string/pref_description_ip"
+        android:title="@string/pref_title_ip"
+        android:id="@+id/editIP"/>
+    <EditTextPreference
+        android:defaultValue="@string/pref_default_port"
+        android:digits="0123456789"
+        android:inputType="number"
+        android:key="port"
+        android:maxLines="1"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="@string/pref_title_puerto" />
+</PreferenceScreen>

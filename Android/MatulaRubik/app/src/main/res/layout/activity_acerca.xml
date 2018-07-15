@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:theme="@style/AlertDialog.AppCompat"
+    tools:context=".AcercaActivity">
+
+
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="24sp" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/cubo" />
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="MatulaRubik"
+        android:textAlignment="center"
+        android:textSize="60sp"
+        android:textStyle="bold" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:stretchColumns="1">
+
+
+        <TableRow>
+
+            <TextView
+                android:layout_column="1"
+                android:padding="3dip"
+                android:text="Proyecto"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:gravity="right"
+                android:padding="3dip"
+                android:text="IOT"
+                android:textSize="18sp" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_column="1"
+                android:padding="3dip"
+                android:text="Catedra:"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:gravity="right"
+                android:padding="3dip"
+                android:text="Sistemas Operativos Avanzado"
+                android:textSize="18sp" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_column="1"
+                android:padding="3dip"
+                android:text="Versión:"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:gravity="right"
+                android:padding="3dip"
+                android:text="Prueba"
+                android:textSize="18sp" />
+        </TableRow>
+
+
+        <TableRow>
+
+            <TextView
+                android:layout_column="1"
+                android:padding="3dip"
+                android:text="Source:"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:gravity="right"
+                android:padding="3dip"
+                android:text="www.github.com/BitsellerSOA/MatulaRubik"
+                android:textSize="18sp" />
+
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_column="1"
+                android:padding="3dip"
+                android:text="Licencia:"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:gravity="right"
+                android:padding="3dip"
+                android:text="GNI General Public License v3.0"
+                android:textSize="18sp" />
+        </TableRow>
+
+
+        <TableRow>
+
+            <TextView
+                android:layout_column="1"
+                android:padding="3dip"
+                android:text="Empresa:"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:gravity="right"
+                android:padding="3dip"
+                android:text="Bitseller"
+                android:textSize="18sp" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_column="1"
+                android:padding="3dip"
+                android:text="Autor:"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:gravity="right"
+                android:padding="3dip"
+                android:text="Adrian Radice"
+                android:textSize="18sp" />
+
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_column="1"
+                android:padding="3dip"
+                android:text=""
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:gravity="right"
+                android:padding="3dip"
+                android:text="Facundo Sanabria"
+                android:textSize="18sp" />
+
+        </TableRow>
+
+    </TableLayout>
+
+
+</LinearLayout>

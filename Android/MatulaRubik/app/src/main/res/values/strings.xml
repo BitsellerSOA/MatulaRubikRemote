@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">MatulaRubik</string>
+
+    <string name="title_activity_acerca">Acerca</string>
+    <string name="title_activity_main">MatulaRubik</string>
+    <string name="navigation_drawer_open">Menu</string>
+    <string name="navigation_drawer_close">Cerrar Menu</string>
+    <string name="nav_header_title">MatrulaRubik</string>
+    <string name="nav_header_subtitle">Bitseller</string>
+    <string name="nav_header_desc">Encabezado</string>
+    <string name="action_settings">Configuración</string>
+    <string name="title_activity_settings">Settings</string>
+
+
+    <!-- Arduino settings -->
+    <string name="pref_header_arduino">Arduino</string>
+
+    <string name="pref_title_ip">IP</string>
+    <string name="pref_description_ip">Dirección IP de Arduino</string>
+    <string name="pref_default_ip">192.168.1.50</string>
+
+    <string name="pref_title_puerto">Puerto</string>
+    <string name="pref_default_port">8080</string>
+
+    <!-- Sensor settings -->
+    <string name="pref_header_sensores">Sensores</string>
+    <string name="pref_title_sensores">Iluminación</string>
+</resources>
