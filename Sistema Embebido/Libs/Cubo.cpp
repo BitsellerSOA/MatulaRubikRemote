@@ -6,11 +6,11 @@ Cubo::Cubo(
             const int dirArr,    const int stepArr,   const int enblArr,
             const int dirAbajo,  const int stepAbajo, const int enblAbajo,
             const int dirCost,   const int stepCost,  const int enblCost,
-            const int fwdPin, const  int revPin, const int inputFinCarrera, const  int pasos,  
-            const int grados180, const  int grados90, const  int grados45, 
-            const int tiempoLectora, const  int pausa 
+            const int fwdPin, const  int revPin, const int inputFinCarrera,
+            const  int pasos, const int grados180, const  int grados90, const  int grados45,
+            const int tiempoLectora, const  int pausa
         )
-{ 
+{
     this->dirArr = dirArr;
     this->stepArr = stepArr;
     this->enblArr = enblArr;
@@ -31,9 +31,11 @@ Cubo::Cubo(
     this->pausa = pausa;
     this->value = 0;
 
+    /*
     pinMode(fwdPin, OUTPUT);
     pinMode(revPin, OUTPUT);
     pinMode(inputFinCarrera, INPUT);
+    */
 }
 
 int Cubo::getFwdPin(){
@@ -64,101 +66,32 @@ int Cubo::getPausa(){
     return this->pausa;
 }
 
-void Cubo::MovL(){
-    Serial.println("MOVER L");
+void Cubo::MovLA(){
+    Serial.println("MOVER LA");
     //girar brazo costado 45 grados antihorario
     //poner Brazo costado
     //girar brazo costado 90 grados horario
     //sacar brazo
     //girar brazo costado 45 grados antihorario
-    
-    girarBrazoCostadoAntihorario(grados45);   
-    ponerBrazoCostado();   
+
+    girarBrazoCostadoAntihorario(grados45);
+    ponerBrazoCostado();
     girarBrazoCostadoHorario(grados90);
-    sacarBrazoCostado();   
+    sacarBrazoCostado();
     girarBrazoCostadoAntihorario(grados45);
 
 }
 
-void Cubo::MovU(){
-    // pongo el brazo de costado con la mano horizontal; 
+void Cubo::MovUA(){
+    Serial.println("MOVER UA");
+    // pongo el brazo de costado con la mano horizontal;
     // giro arriba horario 90 grados;
     // saco el brazo;
     digitalWrite(dirArr, HIGH);  // Establezco una dirección
-    
+
     ponerBrazoCostado();
-    
+
     for (int x = 0; x < grados90 ; x++) { // giro arriba horario 90 grados;
-      digitalWrite(stepArr, HIGH);
-      delayMicroseconds(pausa);
-      digitalWrite(stepArr, LOW);
-      delayMicroseconds(pausa);
-    }
-    
-    sacarBrazoCostado(); 
-}
-
-void Cubo::MovD(){
-    Serial.println("MOVER D");
-    // pongo el brazo de costado con la mano horizontal; 
-    // giro abajo horario 90 grados;
-    // saco el brazo;
-    digitalWrite(dirAbajo, HIGH);  // Establezco una dirección
-    
-    ponerBrazoCostado();
-    
-    for (int x = 0; x < grados90 ; x++) {
-      digitalWrite(stepAbajo, HIGH);
-      delayMicroseconds(pausa);
-      digitalWrite(stepAbajo, LOW);
-      delayMicroseconds(pausa);
-    }
-    
-    sacarBrazoCostado(); 
-}
-
-void Cubo::MovX(){
-    // giro el motor de arriba y el motor de abajo 90grados en sentido horario
-    Serial.println("MOVER X");
-    digitalWrite(dirArr, HIGH);  // Establezco una dirección
-    digitalWrite(dirAbajo, HIGH);
-    
-    for (int x = 0; x < grados90 ; x++) {
-      digitalWrite(stepArr, HIGH); 
-      digitalWrite(stepAbajo, HIGH);
-      delayMicroseconds(pausa);
-      digitalWrite(stepArr, LOW);
-      digitalWrite(stepAbajo, LOW);
-      delayMicroseconds(pausa);
-    }
-}
-
-
-void Cubo::MovLA(){
-    Serial.println("MOVER LA");
-    //girar brazo costado 45 grados horario
-    //poner Brazo costado
-    //girar brazo costado 90 grados antihorario
-    //sacar brazo
-    //girar brazo costado 45 grados horario
-    
-    girarBrazoCostadoHorario(grados45);   
-    ponerBrazoCostado();   
-    girarBrazoCostadoAntihorario(grados90);
-    sacarBrazoCostado();   
-    girarBrazoCostadoHorario(grados45);
-}
-
-void Cubo::MovUA(){
-    Serial.println("MOVER UA");
-    // pongo el brazo de costado con la mano horizontal; 
-    // giro arriba antihorario 90 grados;
-    // saco el brazo;
-    digitalWrite(dirArr, LOW);  // Establezco una dirección
-    
-    ponerBrazoCostado();
-    
-    for (int x = 0; x < grados90 ; x++) { // giro arriba antihorario 90 grados;
       digitalWrite(stepArr, HIGH);
       delayMicroseconds(pausa);
       digitalWrite(stepArr, LOW);
@@ -170,30 +103,29 @@ void Cubo::MovUA(){
 
 void Cubo::MovDA(){
     Serial.println("MOVER DA");
-    // pongo el brazo de costado con la mano horizontal; 
-                        // giro abajo antihorario 90 grados;
-                        // saco el brazo;
-    digitalWrite(dirAbajo, LOW);  // Establezco una dirección
-    
+    // pongo el brazo de costado con la mano horizontal;
+    // giro abajo horario 90 grados;
+    // saco el brazo;
+    digitalWrite(dirAbajo, HIGH);  // Establezco una dirección
+
     ponerBrazoCostado();
-    
+
     for (int x = 0; x < grados90 ; x++) {
       digitalWrite(stepAbajo, HIGH);
       delayMicroseconds(pausa);
       digitalWrite(stepAbajo, LOW);
       delayMicroseconds(pausa);
     }
-    
-    sacarBrazoCostado(); 
+
+    sacarBrazoCostado();
 }
 
-/*
-void Cubo::MovXA(){
-    Serial.println("MOVER XA");
-    // giro el motor de arriba y el motor de abajo 90grados en sentido antihorario    
+void Cubo::MovX(){
+    // giro el motor de arriba y el motor de abajo 90grados en sentido horario
+    Serial.println("MOVER X");
     digitalWrite(dirArr, LOW);  // Establezco una dirección
-    digitalWrite(dirAbajo, LOW);
-    
+    digitalWrite(dirAbajo, HIGH);
+
     for (int x = 0; x < grados90 ; x++) {
       digitalWrite(stepArr, HIGH);
       digitalWrite(stepAbajo, HIGH);
@@ -201,39 +133,110 @@ void Cubo::MovXA(){
       digitalWrite(stepArr, LOW);
       digitalWrite(stepAbajo, LOW);
       delayMicroseconds(pausa);
-    } 
+    }
+}
+
+
+void Cubo::MovL(){
+    Serial.println("MOVER L");
+    //girar brazo costado 45 grados horario
+    //poner Brazo costado
+    //girar brazo costado 90 grados antihorario
+    //sacar brazo
+    //girar brazo costado 45 grados horario
+
+    girarBrazoCostadoHorario(grados45);
+    ponerBrazoCostado();
+    girarBrazoCostadoAntihorario(grados90);
+    sacarBrazoCostado();
+    girarBrazoCostadoHorario(grados45);
+}
+
+void Cubo::MovU(){
+    Serial.println("MOVER U");
+    // pongo el brazo de costado con la mano horizontal;
+    // giro arriba antihorario 90 grados;
+    // saco el brazo;
+    digitalWrite(dirArr, LOW);  // Establezco una dirección
+
+    ponerBrazoCostado();
+
+    for (int x = 0; x < grados90 ; x++) { // giro arriba antihorario 90 grados;
+      digitalWrite(stepArr, HIGH);
+      delayMicroseconds(pausa);
+      digitalWrite(stepArr, LOW);
+      delayMicroseconds(pausa);
+    }
+
+    sacarBrazoCostado();
+}
+
+void Cubo::MovD(){
+    Serial.println("MOVER D");
+    // pongo el brazo de costado con la mano horizontal;
+                        // giro abajo antihorario 90 grados;
+                        // saco el brazo;
+    digitalWrite(dirAbajo, LOW);  // Establezco una dirección
+
+    ponerBrazoCostado();
+
+    for (int x = 0; x < grados90 ; x++) {
+      digitalWrite(stepAbajo, HIGH);
+      delayMicroseconds(pausa);
+      digitalWrite(stepAbajo, LOW);
+      delayMicroseconds(pausa);
+    }
+
+    sacarBrazoCostado();
+}
+
+/*
+void Cubo::MovXA(){
+    Serial.println("MOVER XA");
+    // giro el motor de arriba y el motor de abajo 90grados en sentido antihorario
+    digitalWrite(dirArr, LOW);  // Establezco una dirección
+    digitalWrite(dirAbajo, LOW);
+
+    for (int x = 0; x < grados90 ; x++) {
+      digitalWrite(stepArr, HIGH);
+      digitalWrite(stepAbajo, HIGH);
+      delayMicroseconds(pausa);
+      digitalWrite(stepArr, LOW);
+      digitalWrite(stepAbajo, LOW);
+      delayMicroseconds(pausa);
+    }
 }
 */
 
 
 void Cubo::ponerBrazoCostado(){
-    
-    digitalWrite(revPin, HIGH);
-    digitalWrite(fwdPin, LOW);
-    
+
+    digitalWrite(fwdPin, HIGH);
+    digitalWrite(revPin, LOW);
+
     value = digitalRead(inputFinCarrera);
     while( value == LOW ){
 
       value = digitalRead(inputFinCarrera);
     }
-    
+
     digitalWrite(revPin, LOW);
     digitalWrite(fwdPin, LOW);
 }
-  
+
 void Cubo::sacarBrazoCostado(){
-    digitalWrite(revPin, LOW);
-    digitalWrite(fwdPin, HIGH);
-    
+    digitalWrite(fwdPin, LOW);
+    digitalWrite(revPin, HIGH);
+
     delay(tiempoLectora);
-    
+
     digitalWrite(revPin, LOW);
     digitalWrite(fwdPin, LOW);
 }
-  
+
 void Cubo::girarBrazoCostadoHorario(int cantidadDePasos){
     digitalWrite(dirCost, HIGH);  // Establezco una dirección
-    
+
     for (int x = 0; x < cantidadDePasos ; x++) { // giro costado horario 90 grados;
       digitalWrite(stepCost, HIGH);
       delayMicroseconds(pausa);
@@ -241,10 +244,10 @@ void Cubo::girarBrazoCostadoHorario(int cantidadDePasos){
       delayMicroseconds(pausa);
     }
 }
-  
+
 void Cubo::girarBrazoCostadoAntihorario(int cantidadDePasos){
     digitalWrite(dirCost, LOW);  // Establezco una dirección
-    
+
     for (int x = 0; x < cantidadDePasos ; x++) { // giro costado horario 90 grados;
       digitalWrite(stepCost, HIGH);
       delayMicroseconds(pausa);
@@ -278,7 +281,7 @@ void Cubo::Mover( char c){
         case XC:
             this->MovX();
             break;
-       
+
 /*        case XA
             this->MovXA();
             break; */

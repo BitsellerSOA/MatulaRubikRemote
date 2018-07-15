@@ -22,40 +22,58 @@ const size_t MAX_BODY_SIZE = 200;
 
 String mensaje = "";
 
-int value;
 
-const int dirArr = 26;  // MOTOR ARRIBA
+const int inputFinCarrera = 22;  // entrada del din de carrera: HIGH significa que esta apretado
+
+const int dirArr = 26;        // MOTOR ARRIBA
 const int stepArr = 25;
 const int enblArr = 24;
 
-const int dirAbajo = 31;  // MOTOR ABAJO
+const int dirAbajo = 31;      // MOTOR ABAJO
 const int stepAbajo = 30;
 const int enblAbajo = 28;
 
-const int dirCost = 36;  // MOTOR DE COSTADO
+const int dirCost = 36;       // MOTOR DE COSTADO
 const int stepCost = 35;
 const int enblCost = 33;
 
-const int fwdPin=38;
-const int revPin=39;
-const int inputFinCarrera=22;
-const int pasos=200;
-const int grados180=100;
-const int grados90=50;
-const int grados45=25;
-const int tiempoLectora=10;
-const int pausa=5000;
+const int fwdPin = 39;        //nivel logico de salida para el puente-H(HIGH = adelate)
+const int revPin = 38;         //nivel logico de salida para el puente-H(LOW = adelante)
 
+const int pasos = 200;        //cantidad de pasos por vuelta del motor
+const int grados180 = 100;    //cantidad de pasos necesarios para girar 180 grados
+const int grados90 = 50;      //cantidad de pasos necesarios para girar 90 grados
+const int grados45 = 25;      //cantidad de pasos necesarios para girar 45 grados
+const int tiempoLectora = 170;    // tiempo que tarda la lectora en retroceder
+const int pausa=5000;         // tiempo del pulso del paso a paso
+int value;
+
+/*
 DRV8825 arriba(26,25,24);
 DRV8825 abajo(31,30,28);
 DRV8825 lateral(36,35,33);
-
+*/
 Cubo cubo( dirArr,     stepArr,    enblArr,
            dirAbajo,   stepAbajo,  enblAbajo,
            dirCost,    stepCost,   enblCost,
             fwdPin, revPin, inputFinCarrera, pasos, grados180, grados90, grados45, tiempoLectora, pausa);
 
 void setup() {
+  pinMode(inputFinCarrera, INPUT);
+  
+  pinMode(dirArr, OUTPUT);
+  pinMode(stepArr, OUTPUT);
+  
+  pinMode(dirAbajo, OUTPUT);
+  pinMode(stepAbajo, OUTPUT);
+  
+  pinMode(dirCost, OUTPUT);
+  pinMode(stepCost, OUTPUT);
+  
+  pinMode(fwdPin, OUTPUT); 
+  pinMode(revPin, OUTPUT); 
+
+  // pongo la lectora en low por si las dudas para que no arranque
   digitalWrite(fwdPin, LOW);  
   digitalWrite(revPin, LOW);
   
@@ -65,6 +83,7 @@ void setup() {
   server.begin();
   delay(100);
 
+/*
   // esto es por si la lectora no esta toda para atraz cuando epieza el programa
   value = digitalRead(inputFinCarrera);
   while( value == LOW ){    
@@ -78,6 +97,7 @@ void setup() {
   
   digitalWrite(revPin, LOW);
   digitalWrite(fwdPin, LOW);
+  */
 }
 
 
