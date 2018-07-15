@@ -9,13 +9,14 @@
     tools:showIn="@layout/app_bar_main">
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/imvMotor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="128dp"
         android:layout_marginEnd="64dp"
         android:layout_marginStart="64dp"
         android:layout_marginTop="127dp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,21 +24,22 @@
         app:srcCompat="@drawable/ic_mov_sup" />
 
     <ImageView
-        android:id="@+id/imageView5"
+        android:id="@+id/imvSentidoGiro"
         android:layout_width="wrap_content"
         android:layout_height="63dp"
         android:layout_marginBottom="27dp"
         android:layout_marginEnd="160dp"
         android:layout_marginStart="160dp"
         android:layout_marginTop="37dp"
-        app:layout_constraintBottom_toTopOf="@+id/imageView3"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/imvMotor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_mov_anti" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnMover"
         android:layout_width="222dp"
         android:layout_height="56dp"
         android:layout_marginBottom="34dp"
@@ -46,15 +48,17 @@
         android:layout_marginTop="38dp"
         android:onClick="onClickMover"
         android:text="MOVER"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+        app:layout_constraintTop_toBottomOf="@+id/imvMotor" />
 
     <ImageView
-        android:id="@+id/imageView8"
+        android:id="@+id/imvAyuda"
         android:layout_width="376dp"
         android:layout_height="506dp"
+        android:visibility="visible"
         app:srcCompat="@drawable/instrucciones"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp" />
