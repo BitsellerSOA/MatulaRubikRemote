@@ -5,6 +5,7 @@
 \usepackage{graphicx}
 
 \usepackage{url}
+
 \urldef{\mailsa}\path|{radiceadriann, facundosanabria}@gmail.com|    
 \newcommand{\keywords}[1]{\par\addvspace\baselineskip
 \noindent\keywordname\enspace\ignorespaces#1}
@@ -59,7 +60,7 @@ El objetivo del presente trabajo es investigar los beneficios de incorporar HPC 
 se solucionara implementando el algoritmo no determinístico CFOP. CFOP varia de acuerdo cual 
 se su cara de partida, por lo tanto para cualquier cubo se tienen 6 estados iniciales. El desafío es de 6 posibles caminos para 
 llegar al estado final, quedarse con aquel que implique el menor uso del brazo lateral.
-\keywords{HPC, IOT, Android, Rubik, Paralelismo, OpenMP}
+\keywords{HPC, IOT, Android, Rubik, Paralelismo, OpenCL}
 \end{abstract}
 
 
@@ -88,7 +89,20 @@ Para lograr obtener la menor cantidad de movimientos posibles utilizando este al
 
 En busca de no tener que modificar demasiado el código actualmente implementado, se busco una herramienta que implique una implementación sencilla y optima de paralelismo. La herramienta seleccionada fue Paralldroid.
 
-Paralldroid es un framework de desarrollo, que tiene como objetivo facilitar el trabajo de los desarrolladores de aplicaciones móviles ejecutadas sobre sistemas operativos Android, de acuerdo a lo mencionado en "Performance Analysis of Paralldroid Generated Programs" \cite{jour}. El mismo añade un conjunto de anotaciones al lenguaje Java, basadas en las definidas por el estándar OpenMP. Paralldroid puede ser descargado como plugin para eclipse, y solo es necesario instalarlo para que comience a funcionar\cite{jour}.
+Paralldroid es un framework de desarrollo, que tiene como objetivo facilitar el trabajo de los desarrolladores de aplicaciones móviles ejecutadas sobre sistemas operativos Android, de acuerdo a lo mencionado en "Performance Analysis of Paralldroid Generated Programs" \cite{jour}. El mismo añade un conjunto de anotaciones al lenguaje Java, basadas en las definidas por el estándar OpenCL, permitiendo al desarrollador usar un lenguaje de alto nivel, sin entrar en detalle de implementación de paralelismo, y delegandole la responsabilidad a Paralldroid de generar el programa paralelo, segun lo indicado en "ParallDroid: A Framework for Parallelism in Android" \cite{bookParalldroid}.
+Paralldroid puede ser descargado como plugin para eclipse, y solo es necesario instalarlo para que comience a funcionar\cite{jour}.
+
+
+\begin{figure}
+\centering
+        \includegraphics[totalheight=4cm]{Modelo.png}
+        \caption{Resultado de la refactorización \cite{OpenCLbook}.}
+\end{figure}
+
+Como se puede apreciar en la Figura 1 este framework, mediante el código Java con anotaciones, obtendrá un código nativo OpenCL, invocado desde nuestras clases. Es elemental el uso de NDK en cualquier App para poder hacer uso de este framework.
+
+\section{Distribución de operaciones}
+La particularidad de los hilos de trabajos propuestos, es que son independíentes entre si, cada uno trabaja con su propia matriz de estado del cubo, sin intervenir con los otros. Partiendo de que el resultado de ParallDroid es una implementación de OpenCL \cite{jour}, cada hilo tendrá destinado un WorkGroup independíente. La primera ventaja de esta división, es que cada WorkGroup podrá ser ejecutado en una unidad de procesamiento distinta, si OpenCL lo considera \cite{OpenCLbook}, y como segunda ventaja es el escalado automático (asignación de WorkGroup a las unidades de procesamiento) que implementa OpenCL \cite{OpenCLbook}. Esta ultima ventaja hace referencia, a que un mismo código, en un dispositivo de mayor cantidad de unidades de procesamiento que WorkGroups, en el mejor de los casos cada  se asignara un WorkGroup por unidad de procesamiento, y en un dispositivo de menor cantidad,  OpenCL simplemente terminaría ejecutando un conjunto de los WorkGroups en serie, en las unidades de procesamiento disponible.
 
 
 \section{Explicación Algoritmo}
@@ -123,8 +137,8 @@ public class Solver{
 %
 \noindent
 
-
 Según lo mencionado en "Performance Analysis of Paralldroid Generated Programs" \cite{jour}, ParallelDroid al refactorizar el código, agregaría el manejo de hilos, y nos abstrae de su desarrollo.
+
 
 
 \section{Pruebas que pueden realizarse}
@@ -140,8 +154,8 @@ Extender la propuesta a cada uno de los distintos estados de CFOP en lugar de so
 
 
 \begin{thebibliography}{4}
-\bibitem{jour} A. Acosta and F. Almeida, "Performance Analysis of Paralldroid Generated Programs" 2014 22nd Euromicro International Conference on Parallel, Distributed, and Network-Based Processing, Torino, 2014, pp. 60-67
-\end{thebibliography}
-
-
+\bibitem{jour} A. Acosta and F. Almeida, "Performance Analysis of Paralldroid Generated Programs" 2014 22nd Euromicro International Conference on Parallel, Distributed, and Network-Based Processing, Torino, 2014, pp. 60-67.
+\bibitem{bookParalldroid} Vicente Blanco, "ParallDroid: A Framework for Parallelism in Android".
+\bibitem{OpenCLbook} Aaftab Munshi, "The OpenCL Specification" Khronos OpenCL Working Group, Revision 2015.
+ \end{thebibliography}
 \end{document}
