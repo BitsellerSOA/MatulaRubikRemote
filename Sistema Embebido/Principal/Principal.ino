@@ -24,6 +24,8 @@ String mensaje = "";
 
 int value;
 
+const int inputFinCarrera = 22;
+
 const int dirArr = 26;  // MOTOR ARRIBA
 const int stepArr = 25;
 const int enblArr = 24;
@@ -36,35 +38,51 @@ const int dirCost = 36;  // MOTOR DE COSTADO
 const int stepCost = 35;
 const int enblCost = 33;
 
-const int fwdPin=38;
-const int revPin=39;
-const int inputFinCarrera=22;
-const int pasos=200;
-const int grados180=100;
-const int grados90=50;
-const int grados45=25;
-const int tiempoLectora=10;
+const int fwdPin = 39;   //nivel logico de salida para el puente-H(HIGH = adelate)
+const int revPin = 38;   //nivel logico de salida para el puente-H(LOW = adelante)
+
+const int pasos = 200;
+const int grados180 = 100;
+const int grados90 = 50;
+const int grados45 = 25;
+const int tiempoLectora = 160;
 const int pausa=5000;
 
+/*
 DRV8825 arriba(26,25,24);
 DRV8825 abajo(31,30,28);
 DRV8825 lateral(36,35,33);
-
+*/
 Cubo cubo( dirArr,     stepArr,    enblArr,
            dirAbajo,   stepAbajo,  enblAbajo,
            dirCost,    stepCost,   enblCost,
             fwdPin, revPin, inputFinCarrera, pasos, grados180, grados90, grados45, tiempoLectora, pausa);
 
 void setup() {
+  pinMode(inputFinCarrera, INPUT);
+  
+  pinMode(dirArr, OUTPUT);
+  pinMode(stepArr, OUTPUT);
+  
+  pinMode(dirAbajo, OUTPUT);
+  pinMode(stepAbajo, OUTPUT);
+  
+  pinMode(dirCost, OUTPUT);
+  pinMode(stepCost, OUTPUT);
+  
+  pinMode(fwdPin, OUTPUT); 
+  pinMode(revPin, OUTPUT); 
+
+  
   digitalWrite(fwdPin, LOW);  
   digitalWrite(revPin, LOW);
   
   Serial.begin(9600);
-//  pinMode(3, OUTPUT);
+  pinMode(3, OUTPUT);
   Ethernet.begin(mac, ip);
   server.begin();
   delay(100);
-
+/*
   // esto es por si la lectora no esta toda para atraz cuando epieza el programa
   value = digitalRead(inputFinCarrera);
   while( value == LOW ){    
@@ -78,12 +96,36 @@ void setup() {
   
   digitalWrite(revPin, LOW);
   digitalWrite(fwdPin, LOW);
+*/
 }
 
 
 
 void loop()
 {
+  /*
+  cubo.Mover('X');
+  delay(2000);
+
+  cubo.Mover('D');
+  delay(2000);
+
+  cubo.Mover('U');
+  delay(2000);
+
+  cubo.Mover('L');
+  delay(2000);
+
+  cubo.Mover('Y');
+  delay(2000);
+
+  cubo.Mover('Z');
+  delay(2000);
+  
+  cubo.Mover('V');
+  delay(2000);
+  */
+  
   client = server.available();
   if (client)
   {
@@ -113,7 +155,10 @@ void loop()
     // delay(1);
     client.stop();
   }
+  
 }
+
+
 bool analizarPost()
 {
   char body_post[MAX_BODY_SIZE] = "";
@@ -134,6 +179,7 @@ bool analizarPost()
   {
     cubo.Mover(cara[0]);
     enviarHttpResponse_OK(client);
+    //Serial.println("aa");
     return true;
   }
 
@@ -160,6 +206,7 @@ bool analizarPost()
  * *****************************************************************************
  * Notar que lo ultimo es el JSON que nos interesa ({"MOV":"B"}), su longitud esta indicada por Content-Length
  */
+ 
 bool leerBodyPost(String respuesta, char * body_post)
 {
   int longAreaDatos = -1;
@@ -198,6 +245,7 @@ bool parserBodyPost(char * content, char * cara)
   ////////////////////////////////////
   ///ACONTINUACION POR KEY ACCEDEMOS AL VALOR
   strcpy(cara, root["MOV"]);
+  
   ////////////////////////////////////
   
   return true;
