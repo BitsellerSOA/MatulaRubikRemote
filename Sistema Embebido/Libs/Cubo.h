@@ -16,19 +16,19 @@
 #define XC 'X'
 
 #include "Arduino.h"
-#include "DRV8825.h"
+//#include "DRV8825.h"
 
 class Cubo
 {
     public:
-        
+
         Cubo( const int dirArr,    const int stepArr,   const int enblArr,
               const int dirAbajo,  const int stepAbajo, const int enblAbajo,
               const int dirCost,   const int stepCost,  const int enblCost,
               const int fwdPin, const int revPin, const int inputFinCarrera,
-              const int pasos, const int grados180, const int grados90, const int grados45, const int tiempoLectora,const  int pausa 
+              const int pasos, const int grados180, const int grados90, const int grados45, const int tiempoLectora,const  int pausa
         );
-        
+
         void Mover( char c);
 
         void MovL();
@@ -40,31 +40,31 @@ class Cubo
         void MovUA();
         void MovDA();
         //void MovXA();
-      
-        void ponerBrazoCostado(); 
-        void sacarBrazoCostado();  
+
+        void ponerBrazoCostado();
+        void sacarBrazoCostado();
         void girarBrazoCostadoHorario(int cantidadDePasos);
         void girarBrazoCostadoAntihorario(int cantidadDePasos);
 
 
         int getFwdPin();
         int getRevPin();
-        int getInputFinDeCarrera();      
+        int getInputFinDeCarrera();
         int getPasos();
         int getGrados180();
         int getGrados90();
         int getGrados45();
         int getTiempoLectora();
-        int getPausa(); 
+        int getPausa();
 
         private:
-            int dirArr;  
+            int dirArr;
             int stepArr;
             int enblArr;
             int dirAbajo;
             int stepAbajo;
             int enblAbajo;
-            int dirCost;  
+            int dirCost;
             int stepCost;
             int enblCost;
             int fwdPin;
